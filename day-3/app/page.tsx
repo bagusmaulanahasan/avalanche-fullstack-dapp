@@ -7,8 +7,10 @@ import {
   useDisconnect,
   useReadContract,
   useWriteContract,
+  useSwitchChain,
 } from 'wagmi';
 import { injected } from 'wagmi/connectors';
+import { avalancheFuji } from 'wagmi/chains';
 
 const CONTRACT_ADDRESS: `0x${string}` = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}` || undefined;
 
@@ -30,21 +32,19 @@ const LOCK_ABI = [
 ];
 
 export default function Page() {
-  // HYDRATION FIX
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // WALLET STATEE
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const { connect, isPending: isConnecting } = useConnect();
   const { disconnect } = useDisconnect();
+  
+  const { switchChain, isPending: isSwitchingNetwork } = useSwitchChain();
 
-  // LOCAL STATE
   const [inputValue, setInputValue] = useState('');
 
-  // READ CONTRACT
   const {
     data: value,
     isLoading: isReading,
@@ -55,7 +55,6 @@ export default function Page() {
     functionName: 'value',
   });
 
-  // WRITE CONTRACT
   const {
     writeContract,
     isPending: isWriting,
@@ -164,6 +163,34 @@ export default function Page() {
           </div>
 
           <div className="space-y-4 pt-6 border-t border-slate-200">
+            
+            {isConnected && chainId !== avalancheFuji.id && (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4 text-center">
+                <div className="flex flex-col items-center gap-2">
+                  <div className="p-2 bg-amber-100 rounded-full text-amber-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="text-amber-800">
+                    <p className="font-bold text-sm">Unsupported Network</p>
+                    <p className="text-xs mt-1">
+                      Aplikasi ini berjalan di <strong>Avalanche Fuji</strong>. 
+                      Klik tombol di bawah untuk pindah jaringan agar bisa melakukan update data.
+                    </p>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => switchChain({ chainId: avalancheFuji.id })}
+                  disabled={isSwitchingNetwork}
+                  className="mt-3 w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg transition-colors text-sm shadow-sm flex items-center justify-center gap-2"
+                >
+                  {isSwitchingNetwork ? 'Switching...' : 'Switch to Fuji Network 🔀'}
+                </button>
+              </div>
+            )}
+
             <div className="relative">
               <label className="sr-only">New Value</label>
               <input
@@ -171,13 +198,14 @@ export default function Page() {
                 placeholder="Enter a new number..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="w-full bg-slate-50 text-slate-900 placeholder-slate-400 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-center font-bold text-xl shadow-inner"
+                disabled={isConnected && chainId !== avalancheFuji.id}
+                className="w-full bg-slate-50 text-slate-900 placeholder-slate-400 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-center font-bold text-xl shadow-inner disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
             <button
               onClick={handleSetValue}
-              disabled={isWriting || !inputValue}
+              disabled={isWriting || !inputValue || (isConnected && chainId !== avalancheFuji.id)}
               className="w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 shadow-lg shadow-blue-500/30 transform transition-all hover:-translate-y-1 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none flex items-center justify-center gap-2"
             >
               {isWriting ? (
