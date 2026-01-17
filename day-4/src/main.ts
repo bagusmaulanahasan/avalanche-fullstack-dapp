@@ -5,15 +5,39 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors();
+
+  const descriptionHTML = [
+    '<pre>',
+      'Nama Lengkap : Bagus Maulana Hasan',
+      '<br/>',
+      'NIM          : 221011400240',
+    '</pre>'
+  ].join('');
+
   const config = new DocumentBuilder()
-    .setTitle('Simple Storage dApp API')
-    .setDescription('The cats API description')
+    .setTitle('Avalanche dApp')
+    .setDescription(descriptionHTML)
     .setVersion('1.0')
-    .addTag('simple-storage')
+    .addTag('Backend API', 'NestJS & Swagger')
     .build();
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('documentation', app, documentFactory);
+
+  const document = SwaggerModule.createDocument(app, config);
+
+  SwaggerModule.setup('documentation', app, document, {
+    customSiteTitle: 'day-4',
+    customCss: `
+      body { background-color: #121212 !important; }
+      .swagger-ui { color: #ccc; }
+      .swagger-ui .info .title { color: #fff !important; }
+      .swagger-ui .info { margin: 20px 0; }
+      .topbar { background-color: #000 !important; border-bottom: 1px solid #333; }
+      .swagger-ui .opblock-tag { color: #fff !important; border-bottom: 1px solid #333; }
+      .swagger-ui .opblock-summary-path { color: #fff !important; }
+      .swagger-ui .opblock-summary-description { color: #999 !important; }
+    `,
+  });
   
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 5117);
 }
 bootstrap();
