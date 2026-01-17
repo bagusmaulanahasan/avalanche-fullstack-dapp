@@ -1,0 +1,132 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "Lock",
+  "sourceName": "contracts/Lock.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_unlockTime",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "oldOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnerSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newValue",
+          "type": "uint256"
+        }
+      ],
+      "name": "ValueUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "when",
+          "type": "uint256"
+        }
+      ],
+      "name": "Withdrawal",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address payable",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "setValue",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "unlockTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "value",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x608060405260405161039b38038061039b83398101604081905260209160c7565b804210607e5760405162461bcd60e51b815260206004820152602360248201527f556e6c6f636b2074696d652073686f756c6420626520696e207468652066757460448201526275726560e81b606482015260840160405180910390fd5b5f818155600180546001600160a01b031916339081179091556040519091907f342827c97908e5e2f71151c08502a66d44b6f758e3ac2f1de95f02eb95f0a735908290a35060dd565b5f6020828403121560d6575f5ffd5b5051919050565b6102b1806100ea5f395ff3fe608060405234801561000f575f5ffd5b5060043610610064575f3560e01c80633fa4f2451161004d5780633fa4f2451461008d57806355241077146100965780638da5cb5b146100a9575f5ffd5b8063251c1aa3146100685780633ccfd60b14610083575b5f5ffd5b6100705f5481565b6040519081526020015b60405180910390f35b61008b6100ee565b005b61007060025481565b61008b6100a4366004610264565b610229565b6001546100c99073ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff909116815260200161007a565b5f544210156101445760405162461bcd60e51b815260206004820152601660248201527f596f752063616e2774207769746864726177207965740000000000000000000060448201526064015b60405180910390fd5b60015473ffffffffffffffffffffffffffffffffffffffff1633146101ab5760405162461bcd60e51b815260206004820152601460248201527f596f75206172656e277420746865206f776e6572000000000000000000000000604482015260640161013b565b604080514781524260208201527fbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93910160405180910390a160015460405173ffffffffffffffffffffffffffffffffffffffff909116904780156108fc02915f818181858888f19350505050158015610226573d5f5f3e3d5ffd5b50565b60028190556040518181527f4273d0736f60e0dedfe745e86718093d8ec8646ebd2a60cd60643eeced5658119060200160405180910390a150565b5f60208284031215610274575f5ffd5b503591905056fea264697066735822122036d4e7973052dac4dac8f2a82dc5a5b64d54c781ef61077abb01f7ef7ed03fd264736f6c634300081c0033",
+  "deployedBytecode": "0x608060405234801561000f575f5ffd5b5060043610610064575f3560e01c80633fa4f2451161004d5780633fa4f2451461008d57806355241077146100965780638da5cb5b146100a9575f5ffd5b8063251c1aa3146100685780633ccfd60b14610083575b5f5ffd5b6100705f5481565b6040519081526020015b60405180910390f35b61008b6100ee565b005b61007060025481565b61008b6100a4366004610264565b610229565b6001546100c99073ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff909116815260200161007a565b5f544210156101445760405162461bcd60e51b815260206004820152601660248201527f596f752063616e2774207769746864726177207965740000000000000000000060448201526064015b60405180910390fd5b60015473ffffffffffffffffffffffffffffffffffffffff1633146101ab5760405162461bcd60e51b815260206004820152601460248201527f596f75206172656e277420746865206f776e6572000000000000000000000000604482015260640161013b565b604080514781524260208201527fbf2ed60bd5b5965d685680c01195c9514e4382e28e3a5a2d2d5244bf59411b93910160405180910390a160015460405173ffffffffffffffffffffffffffffffffffffffff909116904780156108fc02915f818181858888f19350505050158015610226573d5f5f3e3d5ffd5b50565b60028190556040518181527f4273d0736f60e0dedfe745e86718093d8ec8646ebd2a60cd60643eeced5658119060200160405180910390a150565b5f60208284031215610274575f5ffd5b503591905056fea264697066735822122036d4e7973052dac4dac8f2a82dc5a5b64d54c781ef61077abb01f7ef7ed03fd264736f6c634300081c0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
