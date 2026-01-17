@@ -26,16 +26,6 @@ async function bootstrap() {
 
   SwaggerModule.setup('documentation', app, document, {
     customSiteTitle: 'day-4',
-    customCss: `
-      body { background-color: #121212 !important; }
-      .swagger-ui { color: #ccc; }
-      .swagger-ui .info .title { color: #fff !important; }
-      .swagger-ui .info { margin: 20px 0; }
-      .topbar { background-color: #000 !important; border-bottom: 1px solid #333; }
-      .swagger-ui .opblock-tag { color: #fff !important; border-bottom: 1px solid #333; }
-      .swagger-ui .opblock-summary-path { color: #fff !important; }
-      .swagger-ui .opblock-summary-description { color: #999 !important; }
-    `,
     customJs: [
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-bundle.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-standalone-preset.min.js',
